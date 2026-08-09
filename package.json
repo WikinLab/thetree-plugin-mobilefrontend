@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "thetree-plugin-vector",
+  "version": "0.1.0",
+  "description": "Cookie-free backend skinData plugin for the Vector/Minerva device variant",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node contract-test.mjs"
+  },
+  "engines": {
+    "node": ">=20.19.1"
+  },
+  "license": "MIT"
+}
