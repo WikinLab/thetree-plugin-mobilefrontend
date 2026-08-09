@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "thetree-plugin-vector",
-  "version": "0.1.0",
-  "description": "Cookie-free backend skinData plugin for the Vector/Minerva device variant",
+  "name": "thetree-plugin-mobilefrontend",
+  "version": "0.2.0",
+  "description": "Backend MobileFrontend compatibility plugin for the tree Vector and Minerva skins",
   "type": "commonjs",
   "scripts": {
     "test": "node contract-test.mjs"
