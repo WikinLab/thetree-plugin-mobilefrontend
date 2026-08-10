@@ -1,8 +1,8 @@
 {
   "private": true,
   "name": "thetree-plugin-mobilefrontend",
-  "version": "0.2.0",
-  "description": "Backend MobileFrontend compatibility plugin for the tree Vector and Minerva skins",
+  "version": "0.3.0",
+  "description": "Skin-neutral MobileFrontend request mode provider for the tree",
   "type": "commonjs",
   "scripts": {
     "test": "node contract-test.mjs"

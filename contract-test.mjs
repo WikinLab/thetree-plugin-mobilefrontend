@@ -14,11 +14,19 @@ assert.equal(contract.schema, 1);
 assert.equal(contract.pluginName, 'thetree-plugin-mobilefrontend');
 assert.equal(contract.installDirectory, 'plugins/thetree-plugin-mobilefrontend');
 assert.equal(contract.transport, 'skinData-page-data');
-assert.deepEqual(contract.supportedSkinNames, ['vector', 'minerva']);
+assert.equal(contract.publicDataKey, 'thetreeMobileFrontend');
+assert.equal(contract.dataSchema, 'thetree-mobilefrontend/v1');
+assert.equal(contract.modeField, 'mode');
+assert.equal(contract.desktopMode, 'desktop');
+assert.equal(contract.mobileMode, 'mobile');
+assert.equal('supportedSkinNames' in contract, false);
+assert.equal('desktopVariant' in contract, false);
+assert.equal('mobileVariant' in contract, false);
+assert.equal('fallbackVariant' in contract, false);
 assert.equal(plugin.type, 'skinData');
 assert.equal(plugin.name, contract.pluginName);
 
-for (const skin of contract.supportedSkinNames) {
+for (const skin of ['vector', 'minerva', 'vector-2022', 'native-a', undefined]) {
   for (const isMobile of [false, true]) {
     const page = { data: { existing: true } };
     assert.deepEqual(plugin.format({ req: { skin, isMobile }, page }), {});
@@ -32,8 +40,7 @@ for (const skin of contract.supportedSkinNames) {
   }
 }
 
-const unsupportedPage = { data: {} };
-assert.deepEqual(plugin.format({ req: { skin: 'liberty', isMobile: true }, page: unsupportedPage }), {});
-assert.deepEqual(unsupportedPage.data, {});
+assert.deepEqual(plugin.format({}), {});
+assert.deepEqual(plugin.format({ req: { isMobile: true } }), {});
 
 console.log('MobileFrontend backend plugin contract passed.');

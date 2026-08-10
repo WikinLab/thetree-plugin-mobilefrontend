@@ -7,7 +7,7 @@ module.exports = {
   name: contract.pluginName,
   type: 'skinData',
   format({ req, page } = {}) {
-    if (!req || !contract.supportedSkinNames.includes(req.skin) || !page) return {};
+    if (!req || !page) return {};
     page.data ||= {};
     page.data[contract.publicDataKey] = {
       schema: contract.dataSchema,
