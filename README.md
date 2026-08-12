@@ -21,3 +21,9 @@ git clone https://github.com/WikinLab/thetree-plugin-mobilefrontend.git thetree-
 ```
 
 플러그인이 없으면 이 데이터 자체가 없습니다. 설치된 경우 데스크톱 요청에는 `desktop`, 모바일 요청에는 `mobile`이 전달됩니다.
+
+## 조합 스킨 config bridge
+
+Skin Composer가 만든 `.skin-composer/generated/runtime-contract.json`이 활성 스킨 폴더에 있으면 이 플러그인의 내부 config bridge도 동작합니다. bridge는 runtime 계약에 선언된 `skin.*` namespace와 정확히 열거된 공용 `wiki.*` 키만 `page.data.thetreeComposedSkinConfig`로 전달합니다. 스킨 이름이나 Vector·Minerva 같은 구체 스킨은 플러그인에 하드코딩하지 않으며, 선언되지 않은 서버 설정은 전달하지 않습니다.
+
+자식 스킨의 안정적인 키(`skin.vector.*`, `skin.minerva.*` 등)는 저장소 계약이 소유합니다. 조합판 자체의 키는 엔진이 활성 폴더명으로 제공하는 `skin.<활성 폴더명>.*`이며 기존 엔진 경로를 그대로 사용합니다. 폴더명이 자식 namespace와 같을 수 있으므로 조합판 전용 설정은 `skin.<활성 폴더명>.composition.*` 아래에 두는 것을 권장합니다.
