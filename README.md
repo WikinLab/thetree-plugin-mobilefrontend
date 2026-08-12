@@ -1,29 +1,60 @@
 # thetree-plugin-mobilefrontend
 
-the tree에서 MediaWiki의 MobileFrontend 역할에 대응하는 범용 백엔드 `skinData` 플러그인입니다.
+the tree에서 모바일 요청을 스킨에 전달하는 MobileFrontend 플러그인입니다.
 
-엔진이 판정한 `req.isMobile` 값을 스킨 이름과 무관하게 `page.data.thetreeMobileFrontend`에 전달합니다. 플러그인은 스킨을 선택하거나 화면과 본문을 변경하지 않습니다. 독립 스킨은 이 신호로 MobileFrontend 기능 프로필을 선택할 수 있고, 조합 스킨은 데스크톱·모바일 슬롯을 선택할 수 있습니다.
+## 주요 기능
+
+- PC·모바일 요청 구분
+- 호환 스킨의 모바일 화면 전환
+- Skin Composer의 데스크톱·모바일 슬롯 전환
+- Composer에 포함된 스킨 설정 키 전달
+- 모든 호환 스킨에서 사용하는 공통 모바일 모드 제공
+
+## 요구 사항
+
+- Node.js 20.19.1 이상을 사용하는 the tree
+- the tree 설치 서버의 명령줄 접근 권한
+- Git이 설치되어 있고 GitHub에 접속할 수 있는 서버
+
+## 설치
+
+the tree 설치 디렉터리에서 다음 명령을 실행합니다.
 
 ```sh
-cd /path/to/thetree/plugins
+cd plugins
 git clone https://github.com/WikinLab/thetree-plugin-mobilefrontend.git thetree-plugin-mobilefrontend
 ```
 
-저장소 전체가 `plugins/thetree-plugin-mobilefrontend/`에 있어야 합니다. 설치나 업데이트 뒤에는 the tree 엔진을 다시 시작합니다. npm 설치나 프런트엔드 빌드는 필요하지 않습니다.
+설치 후 the tree 엔진을 다시 시작하면 적용됩니다.
 
-전달 형식은 `thetree-mobilefrontend/v1`입니다.
+## 설정
 
-```json
-{
-  "schema": "thetree-mobilefrontend/v1",
-  "mode": "mobile"
-}
+기본 설정으로 바로 동작합니다.
+
+| 요청 | 스킨에 전달되는 모드 |
+| --- | --- |
+| PC | `desktop` |
+| 모바일 | `mobile` |
+
+Skin Composer와 함께 사용하면 조합판에 선언된 `skin.*` 설정과 공용 `wiki.*` 설정도 각 슬롯에 전달합니다.
+
+## 업데이트
+
+```sh
+cd plugins/thetree-plugin-mobilefrontend
+git pull
 ```
 
-플러그인이 없으면 이 데이터 자체가 없습니다. 설치된 경우 데스크톱 요청에는 `desktop`, 모바일 요청에는 `mobile`이 전달됩니다.
+업데이트 후 the tree 엔진을 다시 시작합니다.
 
-## 조합 스킨 config bridge
+## 문제 해결
 
-Skin Composer가 만든 `.skin-composer/generated/runtime-contract.json`이 활성 스킨 폴더에 있으면 이 플러그인의 내부 config bridge도 동작합니다. bridge는 runtime 계약에 선언된 `skin.*` namespace와 정확히 열거된 공용 `wiki.*` 키만 `page.data.thetreeComposedSkinConfig`로 전달합니다. 스킨 이름이나 Vector·Minerva 같은 구체 스킨은 플러그인에 하드코딩하지 않으며, 선언되지 않은 서버 설정은 전달하지 않습니다.
+- 모바일 화면 전환 확인 순서: `plugins/thetree-plugin-mobilefrontend` 설치 경로 확인 → the tree 엔진 재시작
+- 설치 또는 업데이트 후에는 반드시 the tree 엔진을 다시 시작합니다.
+- Composer 설정 전달을 갱신하려면 Composer에서 `npm run bootstrap`을 실행한 뒤 스킨을 다시 빌드합니다.
 
-자식 스킨의 안정적인 키(`skin.vector.*`, `skin.minerva.*` 등)는 저장소 계약이 소유합니다. 조합판 자체의 키는 엔진이 활성 폴더명으로 제공하는 `skin.<활성 폴더명>.*`이며 기존 엔진 경로를 그대로 사용합니다. 폴더명이 자식 namespace와 같을 수 있으므로 조합판 전용 설정은 `skin.<활성 폴더명>.composition.*` 아래에 두는 것을 권장합니다.
+## 버전과 라이선스
+
+현재 버전은 `package.json`에서 확인할 수 있습니다.
+
+이 프로젝트는 MIT로 배포됩니다.
